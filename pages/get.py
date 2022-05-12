@@ -39,15 +39,23 @@ for route in routes:
         name = f'{path}/readme.md'
         userfilename = os.path.join(os.path.dirname(os.path.dirname(__file__)), username)
         filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), name)
+        filename2 = os.path.join(os.path.dirname(os.path.dirname(__file__)), name2)
+        filename3 = os.path.join(os.path.dirname(os.path.dirname(__file__)), name3)
         try:
             input_file = codecs.open(userfilename, mode="r", encoding="utf-8")
         except: 
             try:
                 input_file = codecs.open(filename, mode="r", encoding="utf-8")
             except:
-                return 'None'
+                try:
+                    input_file = codecs.open(filename2, mode="r", encoding="utf-8")
+                except:
+                    try:
+                        input_file = codecs.open(filename3, mode="r", encoding="utf-8")
+                    except:
+                        return 'None'
         text = input_file.read()
-        html = markdown.markdown(text)
+        html = markdown.markdown(text, extensions=['markdown.extensions.fenced_code', 'markdown.extensions.tables'])
         return html
 
 @bot.server_app.route('/autohelp/jsondata')
