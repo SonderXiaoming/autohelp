@@ -69,9 +69,7 @@ pip install pathlib
 
 1.iframe页面高度自定义
 
-2.不支持markdown的表格显示
-
-3.界面美化
+2.界面美化
 
 ## To do（懒得做。最好有大佬pr）
 
