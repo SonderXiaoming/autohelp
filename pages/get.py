@@ -37,6 +37,8 @@ for route in routes:
         path = route_edit.replace('/autohelp/','')
         username = f'{path}/userreadme.md'
         name = f'{path}/readme.md'
+        name2 = f'{path}/README.md'
+        name3 = f'{path}/README.MD'
         userfilename = os.path.join(os.path.dirname(os.path.dirname(__file__)), username)
         filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), name)
         filename2 = os.path.join(os.path.dirname(os.path.dirname(__file__)), name2)
