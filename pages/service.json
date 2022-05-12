@@ -1,1 +1,1 @@
-{"MODULES": ["priconne", "reload", "botmanage", "moneyhuilv", "KFCThursday", "groupmaster", "pages"], "black_list": [], "modules_name": {}}
+{"MODULES": ["moneyhuilv", "pages", "botmanage", "reload", "KFCThursday", "groupmaster"], "black_list": ["botmanage", "reload", "pages", "bot_manager_web"], "modules_name": {}}

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
-		<title>功能表</title>
+		<title>环奈功能表</title>
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 		
 		
@@ -37,8 +37,6 @@
     <link href="{{ url_for('static', filename='pcr/css/rev-settings.css') }}" rel="stylesheet" type="text/css">
 	
 	<!-- zipfont -->
-	<link href="{{ url_for('static', filename='pcr/css/TXQYW3-embed.css') }}" rel="stylesheet" type="text/css">
-	
 	<link href="{{ url_for('static', filename='pcr/css/TXQYW5.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ url_for('static', filename='pcr/css/TXQYW5-embed.css') }}" rel="stylesheet" type="text/css">
 
@@ -48,6 +46,51 @@
 	<script type="text/javascript" src="chrome-extension://dbjbempljhcmhlfpfacalomonjpalpko/scripts/inspector.js"></script>
 </head>
 <body style="width:100%;">
+	
+		
+			<!-- header begin -->
+			<header class="header-s1 transparent">
+            <div class="container" style="background-size: cover;">
+                <div class="row" style="background-size: cover;">
+                    <div class="col-md-12" style="background-size: cover;">
+
+                        <div class="header-row" style="background-size: cover;">
+                            <div class="header-col left" style="float: left; clear: both; display: inline; left: -25px; background-size: contain;">
+                                <!-- logo begin -->
+                               
+                                <!-- logo close -->
+                            </div>
+                            <div class="header-col mid" style="background-size: cover;">
+                                <!-- mainmenu begin -->
+                                <ul id="mainmenu" class="no-separator">
+										<li><a href="/huannai/main">主页</a></li>										
+										<li><a href="/huannai/help">帮助文档</a>
+											<ul>
+												<li><a href="/huannai/manual">会战手册</a></li>
+												<li><a href="/huannai/question">常见问题</a></li>
+												<li><a href="/huannai/help">指令查询</a></li>
+												
+											</ul>
+										</li>
+										<li><a href="/huannai/about">关于</a>
+										</li>
+										<li><a href="/huannai/thanks">鸣谢</a></li>
+									</ul>                                
+								<div class="col-right" style="background-size: cover;">
+                                    <a class="btn-custom" href="/huannai/support"><i class="fa fa-heart"></i>赞助</a>
+                                </div>
+                            </div>
+                            <div class="clearfix" style="background-size: cover;"></div>
+                        <div class="clearfix" style="background-size: cover;"></div>
+                        </div>
+                        <!-- small button begin -->
+                        <span id="menu-btn"></span>
+                        <!-- small button close -->
+
+                    </div>
+                </div>
+            </div>
+        </header>
         <!-- header close -->
 			<!-- header close -->
 			<!-- content begin -->
@@ -114,9 +157,29 @@
 															<td class="td on">@Bot+来杯咖啡+空格+反馈内容</td>
 														</tr>
 														<tr class="tr">															
-															<td class="td on">帮助网页版</td>
+															<td class="td on">环奈系列的帮助</td>
 															<td class="td on">调出帮助文档的链接</td>
 															<td class="td on">帮助</td>
+														</tr>
+														<tr class="tr">															
+															<td class="td on">环奈系列的主页</td>
+															<td class="td on">调出主页文档的链接</td>
+															<td class="td on">主页</td>
+														</tr>
+														<tr class="tr">															
+															<td class="td on">环奈系列的手册</td>
+															<td class="td on">调出工会战手册的链接</td>
+															<td class="td on">手册</td>
+														</tr>
+														<tr class="tr">															
+															<td class="td on">赞助</td>
+															<td class="td on">获取支持作者方式</td>
+															<td class="td on">赞助</td>
+														</tr>
+														<tr class="tr">															
+															<td class="td on">价目表</td>
+															<td class="td on">获取收费项目</td>
+															<td class="td on">价目表</td>
 														</tr>
 													</tbody>
 												</table>
@@ -206,14 +269,12 @@
 		<script src="{{ url_for('static', filename='pcr/js/enquire-min.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/easing.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/designesia.js') }}"></script>
-		<script src="{{ url_for('static', filename='pcr/js/bootstrap-min.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/wow-min.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/validation.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/typed.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/owl-carousel.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/layui.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/jquery-stellar-min.js') }}"></script>
-		<script src="{{ url_for('static', filename='pcr/js/jquery-ui.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/jquery-ui.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/app.js') }}"></script>
 	
@@ -275,10 +336,11 @@
 				return false;
 			}
 		</script>
+		
 		<script>
+			var ip = "127.0.0.1"
 			var file_urls = [];
-			function getdata(ip){
-				$.ajax({
+			$.ajax({
 				type: "get",//请求类型
 				datatype: "json",//数据类型
 				url: "http://"+ip+":8080/autohelp/jsondata",//向哪里请求
@@ -308,11 +370,7 @@
 					$( ".accordion-section" ).accordion({collapsible: true});
 					//document.getElementById("test").innerHTML=a;
 				}
-				});	
-			}
-			
-			getdata("127.0.0.1")
-			
+			});
 		</script>
 	
 
