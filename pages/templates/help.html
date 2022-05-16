@@ -277,11 +277,11 @@
 		</script>
 		<script>
 			var file_urls = [];
-			function getdata(ip){
+			function getdata(ip,post){
 				$.ajax({
 				type: "get",//请求类型
 				datatype: "json",//数据类型
-				url: "http://"+ip+":8080/autohelp/jsondata",//向哪里请求
+				url: "http://"+ip+":"+post+"/autohelp/jsondata",//向哪里请求
 				success: function(data){//请求成功后执行该函数
 					if (data["black_list"].length>0){
 						for(var key1 in data["black_list"]){
@@ -292,7 +292,7 @@
 					};
 					
 					for (var key2 in data["MODULES"]) {
-						file_urls[key2] = "http://"+ip+":8080/autohelp/"+data["MODULES"][key2];
+						file_urls[key2] = "http://"+ip+":"+post+"/autohelp/"+data["MODULES"][key2];
 					};
 					
 					var a ="";
@@ -311,7 +311,7 @@
 				});	
 			}
 			
-			getdata("127.0.0.1")
+			getdata("127.0.0.1","8080")
 			
 		</script>
 	
