@@ -67,7 +67,7 @@
 								</div>
 								<div class="spacer-60" style="background-size: cover;"></div>
 								<div class="col-md-8 offset-md-2" style="background-size: cover;">
-									<form class="row" id="form_subscribe" method="post" name="contactForm" action="https://pcr.botlink.xyz/help/" onsubmit="return search();">
+									<form class="row" id="form_subscribe" method="post" name="contactForm" onsubmit="return search();">
 										<div class="col text-center" style="background-size: cover;">
 											<div class="spacer-10" style="background-size: cover;"></div>
 											<input class="form-control" id="searchInput" name="name_1" placeholder="搜索功能或指令" type="text">
@@ -226,16 +226,13 @@
 		<script src="{{ url_for('static', filename='pcr/js/layui.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/jquery-stellar-min.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/jquery-ui.js') }}"></script>
-		<script src="{{ url_for('static', filename='pcr/js/jquery-ui.js') }}"></script>
+		<script src="{{ url_for('static', filename='pcr/js/particles.js') }}"></script>
 		<script src="{{ url_for('static', filename='pcr/js/app.js') }}"></script>
 	
 
 		<script>
 			// 定义首个查询下键
 			var active = 0;
-			$('search').click(function() {
-				search();
-			})
 
 			function search() {
 				// 获取搜索框的值
@@ -245,6 +242,10 @@
 				var real_name = '';
 				// 定义数据列表
 				var list = $("#all_list .td");
+				var list_title = $("#all_list .accordion-section-title");
+				var list_content = $("#all_list .accordion-section-content");
+				list.add(list_title);
+				list.add(list_content);
 				// 定义查找的起始值
 				var true_one = 0;
 				for (var i = 0; i < list.length; i++) {
@@ -300,6 +301,9 @@
 					}
 				}
 			});
+			$('search').click(function() {
+				search();
+			})
 		});
 			// var file_urls = [];
 			// function getdata(ip,post){
