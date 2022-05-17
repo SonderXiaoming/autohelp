@@ -25,6 +25,7 @@
 		<link href="{{ url_for('static', filename='pcr/css/magnific-popup.css') }}" rel="stylesheet" type="text/css">
 		<link href="{{ url_for('static', filename='pcr/css/jquery-countdown.css') }}" rel="stylesheet" type="text/css">
 		<link href="{{ url_for('static', filename='pcr/css/style2.css') }}" rel="stylesheet"  >
+		<link href="{{ url_for('static', filename='pcr/css/markdown.css') }}" rel="stylesheet">
 
 		<!-- color scheme -->
 		<link id="colors" href="{{ url_for('static', filename='pcr/css/scheme-03.css') }}" rel="stylesheet" type="text/css">
@@ -142,7 +143,7 @@
 														data-tab="accordion-{{service.id}}" style="background-size: cover;">
 														{{ service.name }}
 													</div>
-													<div class="accordion-section-content"
+													<div class="accordion-section-content markdown-body"
 														id="accordion-{{service.id}}" style="background-size: cover;">
 														{{ service.help }}
 													</div>
@@ -290,6 +291,7 @@
 		$(function () {
 			$(".accordion-section").accordion({
 				collapsible: true,
+				heightStyle: "content",
 			});
 		});
 			// var file_urls = [];
