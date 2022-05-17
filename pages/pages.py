@@ -79,7 +79,7 @@ def load_modules_readme():
         readme_path = get_readme_path(module)
         help = "None"
         if readme_path is not None:
-            with open(readme_path, "r") as f:
+            with open(readme_path, "r",encoding='utf-8') as f:
                 help = f.read()
         svs.append({"name": module, "help": help})
     return svs
