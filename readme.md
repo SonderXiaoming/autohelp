@@ -71,9 +71,9 @@ pip install pathlib
 
 1.0：总算可以用了
 
-1.1: 修复表格渲染问题，感谢 @BlueDeer233[https://github.com/BlueDeer233]
+1.1: 修复表格渲染问题，感谢 [@BlueDeer233](https://github.com/BlueDeer233)
 
-2.0 大更新，感谢@Lanly109[https://github.com/Lanly109]
+2.0 大更新，感谢[@Lanly109](https://github.com/Lanly109)
 
 1. 网站从客户端渲染改成服务端渲染
 
@@ -105,7 +105,7 @@ http://121.5.12.64:8080/huannai/help
 
 ## 特别感谢
 
-@sanshanya[https://github.com/sanshanya] 的xcw整合包
+[@sanshanya](https://github.com/sanshanya) 的xcw整合包
 
 我也是根据这个里面pages插件为基础进行修改
 
