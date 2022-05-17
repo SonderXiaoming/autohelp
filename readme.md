@@ -32,7 +32,7 @@ https://github.com/SonderXiaoming/autohelp
 
 再用编辑器打开在pages文件templates中的help.html,在314行将127.0.0.1改为你的公网ip
 
-“，”旁边是端口，默认8080，请保持与HoshinoBot\hoshino\config\\_*bot*_.py中的post一致
+“，”旁边是端口，默认8080，请保持与HoshinoBot\hoshino\config\\_*bot*_.py中的port一致
 
 接着打开pages文件中pages.py第7行将127.0.0.1改为你的公网ip
 
