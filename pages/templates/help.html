@@ -292,6 +292,13 @@
 			$(".accordion-section").accordion({
 				collapsible: true,
 				heightStyle: "content",
+				active: false,
+				animate: 100,
+				activate: function (event, ui) {
+					if (!$.isEmptyObject(ui.newHeader.offset())) {
+						$('html:not(:animated), body:not(:animated)').animate({ scrollTop: ui.newHeader.offset().top }, 'fast');
+					}
+				}
 			});
 		});
 			// var file_urls = [];
