@@ -1,6 +1,6 @@
 # AutoHelp
 
-#这是为演示网页源码，需要大量针对自己bot的特色修改，请不要直接使用（别被我发现，不然我一定狠狠嘲笑你）
+# 这是为演示网页源码，需要大量针对自己bot的特色修改，请不要直接使用（别被我发现，不然我一定狠狠嘲笑你）
 
 仅提供主要功能autohelp的配置方法，其他请自行修改（本人水平有限，不提供前端相关开发知识，当然，问了我也会尽量回复）
 
@@ -14,11 +14,15 @@ https://github.com/SonderXiaoming/autohelp
 
 ## 原理：
 
-自动读取每个插件中的readme.md，整理并放到网页上
+自动读取每个插件中的readme.md或service中的help，整理并放到网页上
+
+（可通过service第11行SERVICE_MODE调整）
 
 （主要解决目前原版帮助对于各种插件说明混乱的问题）
 
 （主要适用于大部分插件都是git clone或者有写readme的习惯的人）
+
+以下（用service_mode的人可以无视）
 
 考虑到readme面向是开发者，
 
@@ -32,9 +36,7 @@ https://github.com/SonderXiaoming/autohelp
 
 之后将pages文件夹放入`hoshino/modules中
 
-再用编辑器打开在pages文件templates中的help.html,在314行将127.0.0.1改为你的公网ip
-
-接着打开pages文件中pages.py第7行将127.0.0.1改为你的公网ip
+接着打开pages文件中pages.py第10行将127.0.0.1改为你的公网ip
 
 最后在 HoshinoBot\hoshino\config\\_*bot*_.py 文件的 MODULES_ON 加入 pages
 
@@ -51,9 +53,7 @@ pip install pathlib
 
 ## 使用教程：
 
-发送【帮助网页版】即可获取网址
-
-（防止与原版冲突，有需要自行修改）
+发送【帮助】即可获取网址
 
 ### 额外配置
 
@@ -61,7 +61,7 @@ pip install pathlib
 
 "MODULES"不用管，自动导入
 
-"black_list":	不想某些插件显示在帮助页面上，输入插件所在文件夹名即可屏蔽掉这个插件
+~~"black_list":	不想某些插件显示在帮助页面上，输入插件所在文件夹名即可屏蔽掉这个插件~~已经移至black.json
 
 "modules_name"：本来想但懒得做，插件名字替换（考虑到部分插件可能名字比较奇特难懂）
 
@@ -69,13 +69,25 @@ pip install pathlib
 
 1.0：总算可以用了
 
+1.1: 修复表格渲染问题，感谢 [@BlueDeer233](https://github.com/BlueDeer233)
+
+2.0 大更新，感谢[@Lanly109](https://github.com/Lanly109)
+
+1. 网站从客户端渲染改成服务端渲染
+
+2. 新增了选择放出modules还是services的帮助选项。
+
+3. 新增markdown的css样式
+
+4. 帮助文案的高度可以自适应
+
+5. 扩大了搜索范围，先前搜索范围仅限于基础功能和彩蛋，现在将指令文档也纳入搜索范围
+
+6. 插件按照插件名的字典序进行排序排列
+
 ## 已知问题（不会做，最好有大佬pr或提供思路）
 
-1.iframe页面高度自定义
-
-2.界面美化
-
-3.主页评论动态添加
+1.界面美化（~~这玩意当然越好看越花哨越好，不然怎么显得牛逼呢~~）
 
 ## To do（懒得做。最好有大佬pr）
 
@@ -89,9 +101,17 @@ http://121.5.12.64:8080/huannai/help
 
 （如果访问失败，是服务器挂了）
 
+## 特别感谢
+
+[@sanshanya](https://github.com/sanshanya) 的xcw整合包
+
+我也是根据这个里面pages插件为基础进行修改
+
+（虽然他已经跑路了，确实，原神真好玩）
+
 ## 写在最后
 
-本人水平有限，在写代码时隐约觉得可能有更好的实现方式，但由于目前知识水平限制，未能实现
+本人水平有限，仅仅提供想法，实现总有办法的
 
 如果有更好的思路，欢迎pr或者提出issue
 
