@@ -1,0 +1,2 @@
+Quart==0.11.5
+Markdown==3.3.4

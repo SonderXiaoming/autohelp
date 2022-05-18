@@ -161,7 +161,6 @@ header.smaller,
 .post-image .post-info .inner,
 header #mainmenu a span,
 .switch::after,
-.accordion-section-title.active,
 .de_table.table-style-2:not(.no-heading) .tr:first-child,
 .box-highlight,
 h1 .label,
@@ -170,6 +169,11 @@ a.btn-custom.secondary,
 .accordion.secondary .accordion-section-title:before
 {
 background-image:linear-gradient(to right, var(--primary-color-1), var(--primary-color-2));
+}
+
+.accordion-section-title.active
+{
+background-image:linear-gradient(to left, var(--primary-color-1), var(--primary-color-2));
 }
 
 .feature-box-type-1 i,
