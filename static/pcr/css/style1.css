@@ -112,6 +112,10 @@ body .owl-stage .owl-item {
 	overflow: visible;
 }
 
+input {
+	-webkit-user-select: text;
+}
+
 /* ================================================== */
 
 
