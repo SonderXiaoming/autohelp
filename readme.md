@@ -16,7 +16,7 @@ https://github.com/SonderXiaoming/autohelp
 
 自动读取每个插件中的readme.md或service中的help，整理并放到网页上
 
-（可通过service第11行SERVICE_MODE调整）
+（可通过pages第11行SERVICE_MODE调整）
 
 （主要解决目前原版帮助对于各种插件说明混乱的问题）
 
