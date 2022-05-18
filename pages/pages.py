@@ -10,6 +10,7 @@ import json
 public_address = "127.0.0.1"#修改为服务器公网ip
 SERVICE_MODE = False # true为服务模式，即读取插件名字和插件help
 # false则读取modules文件夹下插件名字以及对应的userreadme或readme
+INVISIBLE = True # SERVICE_MODE下隐藏visible属性为false的service
 
 
 sv_help = '''
@@ -115,6 +116,8 @@ def load_services_readme():
     services = Service.get_loaded_services()
     for _, sv in services.items():
         if sv.name in black:
+            continue
+        if INVISIBLE and sv.visible == False:
             continue
         help = "None" if sv.help is None else sv.help
         name = sv.name if sv.name not in replace.keys() else replace[sv.name]
