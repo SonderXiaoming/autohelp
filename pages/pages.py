@@ -8,12 +8,12 @@ import markdown
 import json
 SERVICE_MODE = False # true为服务模式，即读取插件名字和插件help
 # false则读取modules文件夹下插件名字以及对应的userreadme或readme
-
+INVISIBLE = True # SERVICE_MODE下隐藏visible属性为false的service
 public_address = "127.0.0.1"#修改为服务器公网ip
 
 
 sv_help = '''
-- [帮助] 帮助页面的网页端
+- [#帮助] 帮助页面的网页端
 - [手册] 打开会战手册
 - [主页] 浏览主页
 '''.strip()
@@ -49,23 +49,33 @@ bot = nonebot.get_bot()
 app = bot.server_app
 sv.logger.info(homework_folder)
 
+def load_from_json(_path):
+    '''读取json'''
+    data = None 
+    if os.path.exists(_path):
+        with open(_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    else:
+        sv.logger.warning(f"{_path} 文件不存在")
+    return data
+
 def load_black_list():
     '''获取不想被放出帮助的插件列表'''
     _path = os.path.join(os.path.dirname(__file__), 'black.json')
-    if os.path.exists(_path):
-        with open(_path, "r") as f:
-            black = json.load(f)
-        return set(black)
-    else:
-        sv.logger.warning(f"black.json 文件不存在")
+    black = load_from_json(_path)
+    return set() if black is None else set(black)
 
+def load_replace_list():
+    '''获取替换名字的插件列表'''
+    _path = os.path.join(os.path.dirname(__file__), 'replace.json')
+    replace = load_from_json(_path)
+    return dict() if replace is None else replace
 
 def get_readme_path(module_name):
     '''获取module的帮助路径'''
     READMEs = ["userreadme.md", "readme.md",
                "README.md", "README.MD", "readme.MD"]
     base = os.path.join(os.getcwd(), 'hoshino', 'modules', module_name)
-    print(base)
     readme_path = None
     for readme in READMEs:
         file_path = os.path.join(base, readme)
@@ -79,27 +89,33 @@ def load_modules_readme():
     '''获取module的帮助'''
     svs = [] 
     black = load_black_list()
+    replace = load_replace_list()
     for module in MODULES_ON:
         if module in black:
             continue
         readme_path = get_readme_path(module)
         help = "None"
         if readme_path is not None:
-            with open(readme_path, "r",encoding='utf-8') as f:
+            with open(readme_path, "r", encoding="utf-8") as f:
                 help = f.read()
-        svs.append({"name": module, "help": help})
+        name = module if module not in replace.keys() else replace[module]
+        svs.append({"name": name, "help": help})
     return svs
 
 def load_services_readme():
     '''获取服务的帮助'''
-    services = Service.get_loaded_services()
-    black = load_black_list()
     svs = []
+    black = load_black_list()
+    replace = load_replace_list()
+    services = Service.get_loaded_services()
     for _, sv in services.items():
         if sv.name in black:
             continue
+        if INVISIBLE and sv.visible == False:
+            continue
         help = "None" if sv.help is None else sv.help
-        svs.append({"name": sv.name, "help": help})
+        name = sv.name if sv.name not in replace.keys() else replace[sv.name]
+        svs.append({"name": name, "help": help})
     return svs
 
 def init():
@@ -110,6 +126,7 @@ def init():
         services = load_services_readme()
     else:
         services = load_modules_readme()
+    
     services.sort(key=lambda data:data["name"])
     service_help = []
     id = 0
@@ -119,8 +136,6 @@ def init():
                       'markdown.extensions.fenced_code', 'markdown.extensions.tables']))
         service_help.append({"id": id, "name": sv["name"], "help": html})
         id += 1
-
-
 
 @ma.route('/huannai/main')
 async def index():
