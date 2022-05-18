@@ -82,7 +82,7 @@
 								<div class="spacer-10" style="background-size: cover;"></div>
 								<input class="form-control" id="searchInput" name="name_1" placeholder="搜索功能或指令"
 									type="text">
-								<a id="btn-submit" href="javascript:search()"><i class="arrow_right"></i></a>
+								<a href="javascript:search();" id="btn-submit"><i class="arrow_right"></i></a>
 								<div class="clearfix" style="background-size: cover;"></div>
 							</div>
 							<div class="clearfix" style="background-size: cover;"></div>
@@ -268,9 +268,9 @@
 				var real_name = this_one.text().toString().trim();
 				// 执行like匹配
 				if (real_name.match(kwds)) {
-					success = true;
 					// 处理第当前的结果
 					if (true_one == active) {
+						success = true;
 						// 获取窗口的宽和高
 						var windows_wdh = $(window).width();
 						var windows_hgt = $(window).height();
@@ -281,7 +281,7 @@
 						$("html,body").animate({
 							scrollTop: (y_len - windows_hgt / 2),
 							scrollLeft: (x_len - windows_wdh / 2)
-						}, 500);
+						}, 100);
 						// 标记当前选中的结果
 						this_one.addClass('active');
 						this_one.removeClass('on');
@@ -310,9 +310,9 @@
 				real_name2 = this_two.text().toString().trim();
 				// 执行like匹配
 				if (real_name.match(kwds) || real_name2.match(kwds)) {
-					success = true;
 					// 处理第当前的结果
 					if (true_one == active) {
+						success = true;
 						$(".accordion-section").accordion("option", "active", i);
 						// 标记当前选中的结果
 						this_one.addClass('active');
@@ -349,9 +349,10 @@
 			// 获取第一个列表内容
 			// 定义查找的起始值
 
-			if(! search_table(kwds))
-				if (! search_html(kwds))
-					alert("未找到qwq")
+			var success = search_table(kwds)
+			success |= search_html(kwds)
+			if (!success)
+				alert("未找到qwq")
 
 			active = active >= true_one - 1 ? 0 : active + 1;
 			return false;
@@ -372,9 +373,6 @@
 
 		});
 	</script>
-
-
-
 </body>
 
 </html>
