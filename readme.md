@@ -42,12 +42,15 @@ https://github.com/SonderXiaoming/autohelp
 
 重启 HoshinoBot
 
-此插件调用了两个非常用库，如果没装，请依次使用如下命令安装依赖（其他你们应该装了，大概）
+此插件调用了非常用库，如果没装，请依次使用如下指示安装依赖（其他你们应该装了，大概）
 
-```
-pip install markdown
-pip install pathlib
-```
+打开pages，点击上方菜单“文件”，选择打开powershell
+
+安装依赖国内源：（选其中一个复制粘贴，再点回车即可）
+
+清华大学镜像：python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+
+阿里云的镜像：python -m pip install -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.txt
 
 （127.0.0.1仅供本地调试使用）
 
@@ -59,13 +62,13 @@ pip install pathlib
 
 ### 额外配置
 
-在pages文件夹中service.json中
+replace.json（按照实例，插件原名：插件替换名）
 
-"MODULES"不用管，自动导入
+用来替换你不满意的名字
 
-~~"black_list":	不想某些插件显示在帮助页面上，输入插件所在文件夹名即可屏蔽掉这个插件~~已经移至black.json
+black.json
 
-"modules_name"：本来想但懒得做，插件名字替换（考虑到部分插件可能名字比较奇特难懂）
+用来隐藏你不想出现在网页上的插件
 
 ## 更新日志
 
@@ -87,13 +90,13 @@ pip install pathlib
 
 6. 插件按照插件名的字典序进行排序排列
 
+2.1：修复帮助页面搜索功能，美化界面 感谢[@Lanly109](https://github.com/Lanly109)
+
 ## 已知问题（不会做，最好有大佬pr或提供思路）
 
 1.界面美化（~~这玩意当然越好看越花哨越好，不然怎么显得牛逼呢~~）
 
-## To do（懒得做。最好有大佬pr）
-
-1.插件名字替换（考虑到部分插件可能名字比较奇特难懂）
+2.service按modules分类
 
 ## 参考效果
 
@@ -105,7 +108,7 @@ http://121.5.12.64:8080/huannai/help
 
 ## 特别感谢
 
-[@sanshanya](https://github.com/sanshanya) 的xcw整合包
+[@sanshanya](https://github.com/sanshanya) 的[xcw整合包](https://github.com/pcrbot/hoshino_xcw)
 
 我也是根据这个里面pages插件为基础进行修改
 
