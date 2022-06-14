@@ -98,6 +98,8 @@ black.json
 
 2.service按modules分类
 
+3.新装的插件单独显示（最近更新）
+
 ## 参考效果
 
 http://121.5.12.64:8080/huannai/help
