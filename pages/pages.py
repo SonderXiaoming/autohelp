@@ -10,99 +10,48 @@ import markdown
 import json
 import datetime
 
-public_address = "127.0.0.1"  # 修改为服务器公网ip
-SERVICE_MODE = 2  # 1为服务模式，即读取插件名字和插件help
-# 2为读取bundle模式
-# 0则读取modules文件夹下插件名字以及对应的user readme或readme
+SERVICE_MODE = 0  # 0则读取modules文件夹下插件名字以及对应的user readme或readme,1为服务模式，即读取插件名字和插件help，2为读取bundle模式，
 INVISIBLE = True  # SERVICE_MODE下隐藏visible属性为false的service
+public_address = config.IP#修改为服务器公网ip
 
 sv_help = '''
 - [帮助] 帮助页面的网页端
+- [手册] 打开会战手册
+- [主页] 浏览主页
 - [设置最新服务]
 '''.strip()
 
 sv = Service(
-    name='网页端',  # 功能名
-    use_priv=priv.NORMAL,  # 使用权限
-    manage_priv=priv.ADMIN,  # 管理权限
-    visible=True,  # 是否可见
-    enable_on_default=True,  # 是否默认启用
-    bundle='通用',  # 属于哪一类
-    help_=sv_help  # 帮助文本
-)
-
+    name = '网页端',  #功能名
+    use_priv = priv.NORMAL, #使用权限   
+    manage_priv = priv.ADMIN, #管理权限
+    visible = True, #是否可见
+    enable_on_default = True, #是否默认启用
+    bundle = '通用', #属于哪一类
+    help_ = sv_help #帮助文本
+    )
 
 @sv.on_fullmatch(["帮助网页端"])
 async def bangzhu(bot, ev):
     await bot.send(ev, sv_help, at_sender=True)
 
-
 work_env = Path(os.path.dirname(__file__))
 homework_folder = work_env.joinpath('img')
 static_folder = work_env.joinpath('static')
-hp = Blueprint('hp', __name__, template_folder='templates', static_folder=static_folder)
+ma = Blueprint('ma',__name__,template_folder='templates',static_folder=static_folder)
+hp = Blueprint('hp',__name__,template_folder='templates',static_folder=static_folder)
+tk = Blueprint('tk',__name__,template_folder='templates',static_folder=static_folder)
+ab = Blueprint('ab',__name__,template_folder='templates',static_folder=static_folder)
+sc = Blueprint('sc',__name__,template_folder='templates',static_folder=static_folder)
+js = Blueprint('js',__name__,template_folder='templates',static_folder=static_folder)
+st = Blueprint('st',__name__,template_folder='templates',static_folder=static_folder)
+qn = Blueprint('qn',__name__,template_folder='templates',static_folder=static_folder)
 bot = nonebot.get_bot()
 app = bot.server_app
 sv.logger.info(homework_folder)
 
 service_help = None
 latest_help = None
-
-@hp.route('/bot/help')
-async def index():
-    global service_help
-    if service_help is None:
-        init()
-        if SERVICE_MODE == 2:
-            check_bundle_latest()
-        elif SERVICE_MODE == 1:
-            check_service_latest()
-        else:
-            check_module_latest()
-    return await render_template('help.html', services=service_help, SERVICE_MODE=SERVICE_MODE, latest=latest_help)
-
-
-@sv.on_fullmatch("帮助网页版", only_to_me=False)
-async def get_uploader_url(bot, ev):
-    cfg = config.__bot__
-    await bot.send(ev, f'http://{public_address}:{cfg.PORT}/bot/help')
-
-
-@sv.on_prefix("#设置最新服务")
-async def set_latest(bot, ev):
-    args = ev.message.extract_plain_text()
-    services = Service.get_loaded_services()
-    if args not in services:
-        await bot.finish(ev, "不存在此服务")
-    latest_path = os.path.join(work_env, "latest.json")
-    if os.path.exists(latest_path):
-        try:
-            latest = json.load(open(latest_path, encoding="utf-8"))
-        except json.decoder.JSONDecodeError:
-            latest = []
-    else:
-        latest = []
-    now = datetime.datetime.now().strftime("%Y-%m-%d")
-
-    exists = False
-    for each in latest:
-        if each["service"] == args:
-            each["time"] = now
-            exists = True
-    if not exists:
-        single = {
-            "service": args,
-            "time": now
-        }
-        latest.append(single)
-    with open(latest_path, "w", encoding="utf-8") as f:
-        f.write(json.dumps(latest, indent=2, ensure_ascii=False))
-    await bot.send(ev, "设置完成")
-    if SERVICE_MODE == 2:
-        check_bundle_latest()
-    elif SERVICE_MODE == 1:
-        check_service_latest()
-
 
 def load_from_json(_path):
     """读取json"""
@@ -131,20 +80,14 @@ def load_replace_list():
 
 def get_readme_path(module_name):
     """获取module的帮助路径"""
-    # readmes = ["userreadme.md", "readme.md",
-    #            "README.md", "README.MD", "readme.MD"]
-    readme_rule = re.compile(r"(?i)(user)?readme\.md")
+    readmes = ["userreadme.md", "readme.md","README.md", "README.MD", "readme.MD"]
     base = os.path.join(os.getcwd(), 'hoshino', 'modules', module_name)
     readme_path = None
-    # for readme in readmes:
-    #     file_path = os.path.join(base, readme)
-    #     if os.path.exists(file_path):
-    #         readme_path = file_path
-    #         break
-    for _, _, files in os.walk(base):
-        for file in files:
-            if re.match(readme_rule, file):
-                readme_path = os.path.join(base, file)
+    for readme in readmes:
+        file_path = os.path.join(base, readme)
+        if os.path.exists(file_path):
+            readme_path = file_path
+            break
     return readme_path
 
 
@@ -167,7 +110,6 @@ def load_modules_readme():
             svs.append({"name": name, "help": _help, "mtime": mtime, "ctime": ctime})
     return svs
 
-
 def load_services_readme():
     """获取服务的帮助"""
     svs = []
@@ -184,17 +126,22 @@ def load_services_readme():
         svs.append({"name": sv1.name, "help": helping})
     return svs
 
-
 def load_bundle_readme():
     """从bundle获取帮助"""
     bundles = Service.get_bundles()
     # services = Service.get_loaded_services()
-    legal_bundle = ["订阅", "查询", "会战", "娱乐", "通用"]
+    bundle_set = load_from_json(os.path.join(os.path.dirname(__file__), 'bundle.json'))
+    legal_bundle = bundle_set["legal_bundle"]
+    replace_bundle = bundle_set["replace"]
     illegal_bundle = []
     for i in bundles:
-        if i not in legal_bundle:
+        if i in replace_bundle:
             for j in bundles[i]:
-                bundles["娱乐"].append(j)
+                bundles[bundle_set["replace"][i]].append(j)
+            illegal_bundle.append(i)
+        elif i not in legal_bundle:
+            for j in bundles[i]:
+                bundles[bundle_set["default_bundle"]].append(j)
             illegal_bundle.append(i)
     for each in illegal_bundle:
         del bundles[each]
@@ -214,7 +161,6 @@ def load_bundle_readme():
         data.append(helps)
 
     return data
-
 
 # noinspection PyTypeChecker
 # noinspection PyUnresolvedReferences
@@ -266,7 +212,6 @@ def check_service_latest():
                     data["services"].append(j)
     if not len(data["services"]) == 0:
         latest_help = data
-
 
 def init():
     """帮助文案初始化"""
@@ -323,7 +268,6 @@ def init():
             )
             ids += 1
 
-
 # noinspection PyTypeChecker
 # noinspection PyUnresolvedReferences
 def check_bundle_latest():
@@ -356,3 +300,95 @@ def check_bundle_latest():
                         data["services"].append(k)
     if not len(data["services"]) == 0:
         latest_help = data
+
+@hp.route('/huannai/help')
+async def index():
+    global service_help
+    if service_help is None:
+        init()
+        if SERVICE_MODE == 2:
+            check_bundle_latest()
+        elif SERVICE_MODE == 1:
+            check_service_latest()
+        else:
+            check_module_latest()
+    return await render_template('help.html', services=service_help, SERVICE_MODE=SERVICE_MODE, latest=latest_help)
+
+@ma.route('/huannai/main')
+async def index():
+    return await render_template('main.html')
+    
+@tk.route('/huannai/thanks')
+async def index():
+    return await render_template('thanks.html')
+
+@ab.route('/huannai/about')
+async def index():
+    return await render_template('about.html')
+
+@sc.route('/huannai/manual')
+async def index():
+    return await render_template('manual.html')
+
+@st.route('/huannai/support')
+async def index():
+    return await render_template('support.html')
+
+@qn.route('/huannai/question')
+async def index():
+    return await render_template('question.html')
+
+@js.route('/huannai/404')
+async def index():
+    return await render_template('404.html')
+
+@sv.on_fullmatch("主页",only_to_me=False)
+async def get_uploader_url(bot, ev):
+    cfg = config.__bot__
+    await bot.send(ev,f'http://{public_address}:{cfg.PORT}/huannai/main')
+
+@sv.on_fullmatch("帮助",only_to_me=False)
+async def get_uploader_url(bot, ev):
+    cfg = config.__bot__
+    await bot.send(ev,f'http://{public_address}:{cfg.PORT}/huannai/help')
+    
+@sv.on_fullmatch("手册",only_to_me=False)
+async def get_uploader_url(bot, ev):
+    cfg = config.__bot__
+    await bot.send(ev,f'http://{public_address}:{cfg.PORT}/huannai/manual')
+
+@sv.on_prefix("设置最新服务")
+async def set_latest(bot, ev):
+    args = ev.message.extract_plain_text()
+    services = Service.get_loaded_services()
+    if args not in services:
+        await bot.finish(ev, "不存在此服务")
+    latest_path = os.path.join(work_env, "latest.json")
+    if os.path.exists(latest_path):
+        try:
+            latest = json.load(open(latest_path, encoding="utf-8"))
+        except json.decoder.JSONDecodeError:
+            latest = []
+    else:
+        latest = []
+    now = datetime.datetime.now().strftime("%Y-%m-%d")
+
+    exists = False
+    for each in latest:
+        if each["service"] == args:
+            each["time"] = now
+            exists = True
+    if not exists:
+        single = {
+            "service": args,
+            "time": now
+        }
+        latest.append(single)
+    with open(latest_path, "w", encoding="utf-8") as f:
+        f.write(json.dumps(latest, indent=2, ensure_ascii=False))
+    await bot.send(ev, "设置完成")
+    if SERVICE_MODE == 2:
+        check_bundle_latest()
+    elif SERVICE_MODE == 1:
+        check_service_latest()
+
