@@ -133,8 +133,18 @@ def load_services_readme():
 
 
 def load_bundle_readme():
+    """从bundle获取帮助"""
     bundles = Service.get_bundles()
     # services = Service.get_loaded_services()
+    legal_bundle = ["订阅", "查询", "会战", "娱乐", "通用"]
+    illegal_bundle = []
+    for i in bundles:
+        if i not in legal_bundle:
+            for j in bundles[i]:
+                bundles["娱乐"].append(j)
+            illegal_bundle.append(i)
+    for each in illegal_bundle:
+        del bundles[each]
     data = []
     for i in bundles:
         helps = {
