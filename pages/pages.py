@@ -6,6 +6,7 @@ from hoshino.config import MODULES_ON
 from pathlib import Path
 import markdown
 import json
+import datetime
 
 public_address = "127.0.0.1"  # 修改为服务器公网ip
 SERVICE_MODE = 2  # 1为服务模式，即读取插件名字和插件help
@@ -42,14 +43,15 @@ app = bot.server_app
 sv.logger.info(homework_folder)
 
 service_help = None
-
+latest_help = None
 
 @hp.route('/bot/help')
 async def index():
     global service_help
     if service_help is None:
         init()
-    return await render_template('help.html', services=service_help)
+        check_latest()
+    return await render_template('help.html', services=service_help, SERVICE_MODE=SERVICE_MODE, latest=latest_help)
 
 
 @sv.on_fullmatch("帮助网页版", only_to_me=False)
@@ -156,7 +158,7 @@ def load_bundle_readme():
                 continue
             helping = "None" if j.help is None else j.help
             helps["services"].append(
-                {"name": j.name, "help": helping, "bundle": i}
+                {"name": j.name, "help": helping}
             )
         data.append(helps)
 
@@ -211,4 +213,67 @@ def init():
             service_help.append({"id": ids, "name": sv2["name"], "help": html})
             ids += 1
 
+# noinspection PyTypeChecker
+# noinspection PyUnresolvedReferences
+def check_latest():
+    global latest_help
+    global service_help
+    latest_path = os.path.join(work_env, "latest.json")
+    if os.path.exists(latest_path):
+        try:
+            latest = json.load(open(latest_path, encoding="utf-8"))
+        except json.decoder.JSONDecodeError:
+            return
+    else:
+        return
+    bid = 0
+    data = {
+        "bid": 0,
+        "bundle": "最新功能",
+        "services": []
+    }
+    for i in latest:
+        for j in service_help:
+            if j["bid"] > bid:
+                bid = service_help["bid"]
+            for k in j["services"]:
+                if k["name"] == i["service"]:
+                    now = datetime.datetime.now()
+                    set_time = datetime.datetime.strptime(i["time"], "%Y-%m-%d")
+                    delta = (now - set_time).days
+                    if delta <= 7:
+                        data["services"].append(k)
+    if not len(data["services"]) == 0:
+        latest_help = data
 
+
+@sv.on_prefix("设置最新服务", only_to_me=True)
+async def set_latest(bot, ev):
+    args = ev.message.extract_plain_text()
+    services = Service.get_loaded_services()
+    if args not in services:
+        await bot.finish(ev, "不存在此服务")
+    latest_path = os.path.join(work_env, "latest.json")
+    if os.path.exists(latest_path):
+        try:
+            latest = json.load(open(latest_path, encoding="utf-8"))
+        except json.decoder.JSONDecodeError:
+            latest = []
+    else:
+        latest = []
+    now = datetime.datetime.now().strftime("%Y-%m-%d")
+
+    exists = False
+    for each in latest:
+        if each["service"] == args:
+            each["time"] = now
+            exists = True
+    if not exists:
+        single = {
+            "service": args,
+            "time": now
+        }
+        latest.append(single)
+    with open(latest_path, "w", encoding="utf-8") as f:
+        f.write(json.dumps(latest, indent=2, ensure_ascii=False))
+    await bot.send(ev, "设置完成")
