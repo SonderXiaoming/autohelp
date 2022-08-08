@@ -51,7 +51,8 @@ async def index():
     global service_help
     if service_help is None:
         init()
-        check_latest()
+        if SERVICE_MODE == 2:
+            check_latest()
     return await render_template('help.html', services=service_help, SERVICE_MODE=SERVICE_MODE, latest=latest_help)
 
 
