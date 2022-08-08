@@ -141,7 +141,7 @@ def load_bundle_readme():
             "bundle": i,
             "services": []
         }
-        for _, j in services.items():
+        for j in bundles[i]:
             if INVISIBLE and not j.visible:
                 continue
             if j.bundle == i:
