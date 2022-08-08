@@ -236,7 +236,7 @@ def check_latest():
     for i in latest:
         for j in service_help:
             if j["bid"] > bid:
-                bid = service_help["bid"]
+                bid = j["bid"]
             for k in j["services"]:
                 if k["name"] == i["service"]:
                     now = datetime.datetime.now()
