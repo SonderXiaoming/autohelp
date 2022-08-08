@@ -136,35 +136,237 @@
 							</div>
 						</div>
 
-						<section id="all_list" style="background-size: cover; opacity: 90%;">
-							<div id="test" class="container" style="background-size: cover;">
-								<div class="row" style="background-size: cover;">
-									<div class="col text-center" style="background-size: cover;">
-										<h2 class="fontw3"><span class="uptitle id-color"></span>指令文档</h2>
-										<div class="spacer-20" style="background-size: cover;"></div>
-									</div>
-								</div>
-								<div class="row" style="background-size: cover;">
-									<div class="col-md-10 offset-md-1" style="background-size: cover;">
-										<div class="accordion" style="background-size: cover;">
-											<div class="accordion-section" style="background-size: cover;">
-
-												{% for service in services %}
-												<div class="accordion-section-title fontw3"
-													data-tab="accordion-{{service.id}}" style="background-size: cover;">
-													{{ service.name }}
-												</div>
-												<div class="accordion-section-content markdown-body"
-													id="accordion-{{service.id}}" style="background-size: cover;">
-													{{ service.help }}
-												</div>
-												{% endfor %}
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
+						{% if SERVICE_MODE == 1 %}
+                        <section id="all_list" style="background-size: cover; opacity: 90%; padding-bottom: 10px;">
+                            <div id="test" class="container" style="background-size: cover;">
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col text-center" style="background-size: cover;">
+                                        <h2 class="fontw3"><span class="uptitle id-color"></span>指令文档</h2>
+                                    </div>
+                                </div>
+                                {% if latest is not none %}
+                                    </div>
+                                    </section>
+                                    <section id="all_list"
+                                             style="background-size: cover; opacity: 90%; padding-top: 10px;">
+                                    <div id="test" class="container" style="background-size: cover;">
+                                    <div class="row" style="background-size: cover;">
+                                        <div class="col text-center" style="background-size: cover;">
+                                            <h2 class="fontw3"><span
+                                                    class="uptitle id-color"></span>{{ latest.bundle }}</h2>
+                                            <div class="spacer-20" style="background-size: cover;"></div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                        <div class="accordion" style="background-size: cover;">
+                                            <div class="accordion-section" style="background-size: cover;">
+                                                {% for sv in latest.services %}
+                                                    <div class="accordion-section-title fontw3"
+                                                         data-tab="accordion-{{ sv.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ sv.name }}
+                                                    </div>
+                                                    <div class="accordion-section-content markdown-body"
+                                                         id="accordion-{{ sv.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ sv.help }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                </section>
+                        <section id="all_list" style="background-size: cover; opacity: 90%; padding-top: 10px;">
+                            <div id="test" class="container" style="background-size: cover;">
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col text-center" style="background-size: cover;">
+                                        <h2 class="fontw3"><span
+                                                class="uptitle id-color"></span>全部功能</h2>
+                                        <div class="spacer-20" style="background-size: cover;"></div>
+                                    </div>
+                                </div>
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                        <div class="accordion" style="background-size: cover;">
+                                            <div class="accordion-section" style="background-size: cover;">
+                                                {% for service in services %}
+                                                    <div class="accordion-section-title fontw3"
+                                                         data-tab="accordion-{{ service.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ service.name }}
+                                                    </div>
+                                                    <div class="accordion-section-content markdown-body"
+                                                         id="accordion-{{ service.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ service.help }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    {% endif %}
+                    {% if SERVICE_MODE == 2 %}
+                        <section id="all_list" style="background-size: cover; opacity: 90%; padding-bottom: 10px;">
+                            <div id="test" class="container" style="background-size: cover;">
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col text-center" style="background-size: cover;">
+                                        <h2 class="fontw3"><span class="uptitle id-color"></span>指令文档</h2>
+                                    </div>
+                                </div>
+                                {% if latest is not none %}
+                                    </div>
+                                    </section>
+                                    <section id="all_list"
+                                             style="background-size: cover; opacity: 90%; padding-top: 10px;">
+                                    <div id="test" class="container" style="background-size: cover;">
+                                    <div class="row" style="background-size: cover;">
+                                        <div class="col text-center" style="background-size: cover;">
+                                            <h2 class="fontw3"><span
+                                                    class="uptitle id-color"></span>{{ latest.bundle }}</h2>
+                                            <div class="spacer-20" style="background-size: cover;"></div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                        <div class="accordion" style="background-size: cover;">
+                                            <div class="accordion-section" style="background-size: cover;">
+                                                {% for sv in latest.services %}
+                                                    <div class="accordion-section-title fontw3"
+                                                         data-tab="accordion-{{ sv.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ sv.name }}
+                                                    </div>
+                                                    <div class="accordion-section-content markdown-body"
+                                                         id="accordion-{{ sv.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ sv.help }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                </section>
+                        {% for service in services %}
+                            <section id="all_list" style="background-size: cover; opacity: 90%; padding-top: 10px;">
+                                <div id="test" class="container" style="background-size: cover;"
+                                     data-tab="accordion-{{ service.bid }}">
+                                    <div class="row" style="background-size: cover;">
+                                        <div class="col text-center" style="background-size: cover;">
+                                            <h2 class="fontw3"><span
+                                                    class="uptitle id-color"></span>{{ service.bundle }}</h2>
+                                            <div class="spacer-20" style="background-size: cover;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-size: cover;">
+                                        <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                            <div class="accordion" style="background-size: cover;">
+                                                <div class="accordion-section" style="background-size: cover;">
+                                                    {% for sv in service.services %}
+                                                        <div class="accordion-section-title fontw3"
+                                                             data-tab="accordion-{{ sv.id }}"
+                                                             style="background-size: cover;">
+                                                            {{ sv.name }}
+                                                        </div>
+                                                        <div class="accordion-section-content markdown-body"
+                                                             id="accordion-{{ sv.id }}"
+                                                             style="background-size: cover;">
+                                                            {{ sv.help }}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        {% endfor %}
+                    {% endif %}
+                    {% if SERVICE_MODE == 0 %}
+                        <section id="all_list" style="background-size: cover; opacity: 90%; padding-bottom: 10px;">
+                            <div id="test" class="container" style="background-size: cover;">
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col text-center" style="background-size: cover;">
+                                        <h2 class="fontw3"><span class="uptitle id-color"></span>指令文档</h2>
+                                    </div>
+                                </div>
+                                {% if latest is not none %}
+                                    </div>
+                                    </section>
+                                    <section id="all_list"
+                                             style="background-size: cover; opacity: 90%; padding-top: 10px;">
+                                    <div id="test" class="container" style="background-size: cover;">
+                                    <div class="row" style="background-size: cover;">
+                                        <div class="col text-center" style="background-size: cover;">
+                                            <h2 class="fontw3"><span
+                                                    class="uptitle id-color"></span>{{ latest.bundle }}</h2>
+                                            <div class="spacer-20" style="background-size: cover;"></div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                        <div class="accordion" style="background-size: cover;">
+                                            <div class="accordion-section" style="background-size: cover;">
+                                                {% for sv in latest.services %}
+                                                    <div class="accordion-section-title fontw3"
+                                                         data-tab="accordion-{{ sv.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ sv.name }}
+                                                    </div>
+                                                    <div class="accordion-section-content markdown-body"
+                                                         id="accordion-{{ sv.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ sv.help }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                </section>
+                        <section id="all_list" style="background-size: cover; opacity: 90%; padding-top: 10px;">
+                            <div id="test" class="container" style="background-size: cover;">
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col text-center" style="background-size: cover;">
+                                        <h2 class="fontw3"><span
+                                                class="uptitle id-color"></span>全部功能</h2>
+                                        <div class="spacer-20" style="background-size: cover;"></div>
+                                    </div>
+                                </div>
+                                <div class="row" style="background-size: cover;">
+                                    <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                        <div class="accordion" style="background-size: cover;">
+                                            <div class="accordion-section" style="background-size: cover;">
+                                                {% for service in services %}
+                                                    <div class="accordion-section-title fontw3"
+                                                         data-tab="accordion-{{ service.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ service.name }}
+                                                    </div>
+                                                    <div class="accordion-section-content markdown-body"
+                                                         id="accordion-{{ service.id }}"
+                                                         style="background-size: cover;">
+                                                        {{ service.help }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    {% endif %}
 
 
 						<div class="spacer-60" style="background-size: cover;"></div>
@@ -276,7 +478,7 @@
 						var windows_hgt = $(window).height();
 						// 获取第一个坐标
 						var x_len = this_one.offset().left;
-						var y_len = this_one.offset().top;	
+						var y_len = this_one.offset().top;
 						// 驱动滚动条滚动到指定的位置
 						$("html,body").animate({
 							scrollTop: (y_len - windows_hgt / 2),
@@ -342,7 +544,7 @@
 			var kwds = $("#searchInput").val().trim();
 			// 搜索内容变了，应该重新搜索
 			if (kwds != lastkwds){
-				active = 0;				
+				active = 0;
 			}
 			true_one = 0;
 			lastkwds = kwds
