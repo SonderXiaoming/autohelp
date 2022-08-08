@@ -278,3 +278,4 @@ async def set_latest(bot, ev):
     with open(latest_path, "w", encoding="utf-8") as f:
         f.write(json.dumps(latest, indent=2, ensure_ascii=False))
     await bot.send(ev, "设置完成")
+    check_latest()
