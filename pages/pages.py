@@ -16,6 +16,7 @@ INVISIBLE = True  # SERVICE_MODE下隐藏visible属性为false的service
 
 sv_help = '''
 - [帮助] 帮助页面的网页端
+- [设置最新服务]
 '''.strip()
 
 sv = Service(
@@ -247,7 +248,7 @@ def check_latest():
         latest_help = data
 
 
-@sv.on_prefix("设置最新服务", only_to_me=True)
+@sv.on_prefix("设置最新服务")
 async def set_latest(bot, ev):
     args = ev.message.extract_plain_text()
     services = Service.get_loaded_services()
