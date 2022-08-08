@@ -4,6 +4,11 @@
 
 ### 开源真好，很多问题都被大佬解决了
 
+### 3.0更新
+
+1. 新增最新更新，优先显示最近修改过的插件
+2. 新增按bundle分类
+
 这是一个适用hoshinobot的自动帮助插件，改自xcw整合包的pages，安装之后会生成一个可供用户访问的帮助网页
 
 ### ★ 如果你喜欢的话，请给仓库点一个star支持一下23333 ★
@@ -14,9 +19,15 @@ https://github.com/SonderXiaoming/autohelp
 
 ## 原理：
 
-自动读取每个插件中的readme.md或service中的help，整理并放到网页上
+自动读取每个插件中的
 
-（可通过pages第11行SERVICE_MODE调整）
+1. readme.md
+
+2. service中的help，
+
+3. hoshino自带的bundle中的help
+
+整理并放到网页上（可通过pages第14行SERVICE_MODE调整）
 
 （主要解决目前原版帮助对于各种插件说明混乱的问题）
 
@@ -28,7 +39,7 @@ https://github.com/SonderXiaoming/autohelp
 
 如果实在不方便用户阅读，可以手动写一份userreadme.md放入与readme同一文件夹
 
-优先读取userreadme，如果两个都没有，网页上会显示为none
+优先读取userreadme
 
 ## 部署教程：
 
@@ -36,7 +47,7 @@ https://github.com/SonderXiaoming/autohelp
 
 之后将pages文件夹放入`hoshino/modules中
 
-接着打开pages文件中pages.py第10行将127.0.0.1改为你的公网ip
+接着打开pages文件中pages.py第13行将127.0.0.1改为你的公网ip
 
 最后在 HoshinoBot\hoshino\config\\_*bot*_.py 文件的 MODULES_ON 加入 pages
 
@@ -56,19 +67,27 @@ https://github.com/SonderXiaoming/autohelp
 
 ## 使用教程：
 
-发送【帮助网页版】即可获取网址
+发送【帮助网页版】即可获取网址（防止与原版冲突，有需要自行修改）
 
-（防止与原版冲突，有需要自行修改）
+发送【设置最新服务】设置最近更新/推荐服务，优先显示
 
 ### 额外配置
 
-replace.json（按照实例，插件原名：插件替换名）
+replace.json
 
-用来替换你不满意的名字
+（按照实例，插件原名：插件替换名）用来替换你不满意的名字
 
 black.json
 
 用来隐藏你不想出现在网页上的插件
+
+bundle.json
+
+legal_bundle：设置合适的bundle名分类，如果不在这范围内则会放入默认bundle
+
+replace：替换奇葩bundle（bundle原名：bundle替换名）
+
+default_bundle：默认bundle
 
 ## 更新日志
 
@@ -92,13 +111,18 @@ black.json
 
 2.1：修复帮助页面搜索功能，美化界面 感谢[@Lanly109](https://github.com/Lanly109)
 
+3.0 感谢[@kcn3388](https://github.com/kcn3388)
+
+1. 新增最新功能，优先显示最近修改过的插件
+2. 新增按bundle分类
+
 ## 已知问题（不会做，最好有大佬pr或提供思路）
 
 1.界面美化（~~这玩意当然越好看越花哨越好，不然怎么显得牛逼呢~~）
 
-2.service按modules分类
+（加急：指令文档，最新功能，全部指令三个标题太丑了）
 
-3.新装的插件单独显示（最近更新）
+2.新装的插件单独显示（最近更新）
 
 ## 参考效果
 
