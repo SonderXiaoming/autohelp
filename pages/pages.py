@@ -134,7 +134,7 @@ def load_services_readme():
 
 def load_bundle_readme():
     bundles = Service.get_bundles()
-    services = Service.get_loaded_services()
+    # services = Service.get_loaded_services()
     data = []
     for i in bundles:
         helps = {
@@ -144,11 +144,10 @@ def load_bundle_readme():
         for j in bundles[i]:
             if INVISIBLE and not j.visible:
                 continue
-            if j.bundle == i:
-                helping = "None" if j.help is None else j.help
-                helps["services"].append(
-                    {"name": j.name, "help": helping, "bundle": j.bundle}
-                )
+            helping = "None" if j.help is None else j.help
+            helps["services"].append(
+                {"name": j.name, "help": helping, "bundle": i}
+            )
         data.append(helps)
 
     return data
