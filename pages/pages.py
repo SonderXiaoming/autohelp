@@ -130,14 +130,31 @@ def load_replace_list():
 
 def get_readme_path(module_name):
     """获取module的帮助路径"""
-    readmes = ["userreadme.md", "readme.md","README.md", "README.MD", "readme.MD"]
+    # readmes = ["userreadme.md", "readme.md",
+    #            "README.md", "README.MD", "readme.MD"]
+    readme_rule = re.compile(r"(?i)(user)?readme\.md")
+    high_readme_rule = re.compile(r"(?i)userreadme\.md")
     base = os.path.join(os.getcwd(), 'hoshino', 'modules', module_name)
     readme_path = None
-    for readme in readmes:
-        file_path = os.path.join(base, readme)
-        if os.path.exists(file_path):
-            readme_path = file_path
-            break
+    # for readme in readmes:
+    #     file_path = os.path.join(base, readme)
+    #     if os.path.exists(file_path):
+    #         readme_path = file_path
+    #         break
+    is_user_readme = False
+    get_readme = True
+    for module_path, _, files in os.walk(base):
+        for file in files:
+            if re.match(high_readme_rule, file):
+                readme_path = os.path.join(module_path, file)
+                is_user_readme = True
+            if re.match(readme_rule, file):
+                readme_path = os.path.join(module_path, file)
+                get_readme = True
+            if is_user_readme:
+                return readme_path
+        if get_readme:
+            return readme_path
     return readme_path
 
 def load_modules_readme():
