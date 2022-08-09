@@ -147,48 +147,49 @@
                                 {% if latest is not none %}
                                     </div>
                                     </section>
+                                    <section id="all_list_latest"
+                                             style="background-size: cover; opacity: 90%; padding-top: 10px;">
+                                        <div id="test" class="container" style="background-size: cover;">
+                                            <div class="row" style="background-size: cover;">
+                                                <div class="col text-center" style="background-size: cover;">
+                                                    <h2 class="fontw3"><span
+                                                            class="uptitle id-color"></span>{{ latest.bundle }}</h2>
+                                                    <div class="spacer-20" style="background-size: cover;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="background-size: cover;">
+                                                <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                                    <div class="accordion-latest" style="background-size: cover;">
+                                                        <div class="accordion-section-latest" style="background-size: cover;">
+                                                            {% for sv in latest.services %}
+                                                                <div class="accordion-section-title-latest fontw3"
+                                                                     data-tab="accordion-{{ sv.id }}"
+                                                                     style="background-size: cover;">
+                                                                    {{ sv.name }}
+                                                                </div>
+                                                                <div class="accordion-section-content-latest markdown-body"
+                                                                     id="accordion-{{ sv.id }}"
+                                                                     style="background-size: cover;">
+                                                                    {{ sv.help }}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
                                     <section id="all_list"
                                              style="background-size: cover; opacity: 90%; padding-top: 10px;">
                                     <div id="test" class="container" style="background-size: cover;">
                                     <div class="row" style="background-size: cover;">
                                         <div class="col text-center" style="background-size: cover;">
                                             <h2 class="fontw3"><span
-                                                    class="uptitle id-color"></span>{{ latest.bundle }}</h2>
+                                                    class="uptitle id-color"></span>全部功能</h2>
                                             <div class="spacer-20" style="background-size: cover;"></div>
                                         </div>
                                     </div>
                                 {% endif %}
-                                <div class="row" style="background-size: cover;">
-                                    <div class="col-md-10 offset-md-1" style="background-size: cover;">
-                                        <div class="accordion" style="background-size: cover;">
-                                            <div class="accordion-section" style="background-size: cover;">
-                                                {% for sv in latest.services %}
-                                                    <div class="accordion-section-title fontw3"
-                                                         data-tab="accordion-{{ sv.id }}"
-                                                         style="background-size: cover;">
-                                                        {{ sv.name }}
-                                                    </div>
-                                                    <div class="accordion-section-content markdown-body"
-                                                         id="accordion-{{ sv.id }}"
-                                                         style="background-size: cover;">
-                                                        {{ sv.help }}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                                </section>
-                        <section id="all_list" style="background-size: cover; opacity: 90%; padding-top: 10px;">
-                            <div id="test" class="container" style="background-size: cover;">
-                                <div class="row" style="background-size: cover;">
-                                    <div class="col text-center" style="background-size: cover;">
-                                        <h2 class="fontw3"><span
-                                                class="uptitle id-color"></span>全部功能</h2>
-                                        <div class="spacer-20" style="background-size: cover;"></div>
-                                    </div>
-                                </div>
                                 <div class="row" style="background-size: cover;">
                                     <div class="col-md-10 offset-md-1" style="background-size: cover;">
                                         <div class="accordion" style="background-size: cover;">
@@ -209,8 +210,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                                </div>
+                                </section>
                     {% endif %}
                     {% if SERVICE_MODE == 2 %}
                         <section id="all_list" style="background-size: cover; opacity: 90%; padding-bottom: 10px;">
@@ -223,7 +224,7 @@
                                 {% if latest is not none %}
                                     </div>
                                     </section>
-                                    <section id="all_list"
+                                    <section id="all_list_latest"
                                              style="background-size: cover; opacity: 90%; padding-top: 10px;">
                                     <div id="test" class="container" style="background-size: cover;">
                                     <div class="row" style="background-size: cover;">
@@ -233,27 +234,27 @@
                                             <div class="spacer-20" style="background-size: cover;"></div>
                                         </div>
                                     </div>
-                                {% endif %}
-                                <div class="row" style="background-size: cover;">
-                                    <div class="col-md-10 offset-md-1" style="background-size: cover;">
-                                        <div class="accordion" style="background-size: cover;">
-                                            <div class="accordion-section" style="background-size: cover;">
-                                                {% for sv in latest.services %}
-                                                    <div class="accordion-section-title fontw3"
-                                                         data-tab="accordion-{{ sv.id }}"
-                                                         style="background-size: cover;">
-                                                        {{ sv.name }}
-                                                    </div>
-                                                    <div class="accordion-section-content markdown-body"
-                                                         id="accordion-{{ sv.id }}"
-                                                         style="background-size: cover;">
-                                                        {{ sv.help }}
-                                                    </div>
-                                                {% endfor %}
+                                    <div class="row" style="background-size: cover;">
+                                        <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                            <div class="accordion-latest" style="background-size: cover;">
+                                                <div class="accordion-section-latest" style="background-size: cover;">
+                                                    {% for sv in latest.services %}
+                                                        <div class="accordion-section-title-latest fontw3"
+                                                             data-tab="accordion-{{ sv.id }}"
+                                                             style="background-size: cover;">
+                                                            {{ sv.name }}
+                                                        </div>
+                                                        <div class="accordion-section-content-latest markdown-body"
+                                                             id="accordion-{{ sv.id }}"
+                                                             style="background-size: cover;">
+                                                            {{ sv.help }}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endif %}
                                 </div>
                                 </section>
                         {% for service in services %}
@@ -302,48 +303,49 @@
                                 {% if latest is not none %}
                                     </div>
                                     </section>
+                                    <section id="all_list_latest"
+                                             style="background-size: cover; opacity: 90%; padding-top: 10px;">
+                                        <div id="test" class="container" style="background-size: cover;">
+                                            <div class="row" style="background-size: cover;">
+                                                <div class="col text-center" style="background-size: cover;">
+                                                    <h2 class="fontw3"><span
+                                                            class="uptitle id-color"></span>{{ latest.bundle }}</h2>
+                                                    <div class="spacer-20" style="background-size: cover;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="background-size: cover;">
+                                                <div class="col-md-10 offset-md-1" style="background-size: cover;">
+                                                    <div class="accordion-latest" style="background-size: cover;">
+                                                        <div class="accordion-section-latest" style="background-size: cover;">
+                                                            {% for sv in latest.services %}
+                                                                <div class="accordion-section-title fontw3"
+                                                                     data-tab="accordion-{{ sv.id }}"
+                                                                     style="background-size: cover;">
+                                                                    {{ sv.name }}
+                                                                </div>
+                                                                <div class="accordion-section-content-latest markdown-body"
+                                                                     id="accordion-{{ sv.id }}"
+                                                                     style="background-size: cover;">
+                                                                    {{ sv.help }}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
                                     <section id="all_list"
                                              style="background-size: cover; opacity: 90%; padding-top: 10px;">
                                     <div id="test" class="container" style="background-size: cover;">
                                     <div class="row" style="background-size: cover;">
                                         <div class="col text-center" style="background-size: cover;">
                                             <h2 class="fontw3"><span
-                                                    class="uptitle id-color"></span>{{ latest.bundle }}</h2>
+                                                    class="uptitle id-color"></span>全部功能</h2>
                                             <div class="spacer-20" style="background-size: cover;"></div>
                                         </div>
                                     </div>
                                 {% endif %}
-                                <div class="row" style="background-size: cover;">
-                                    <div class="col-md-10 offset-md-1" style="background-size: cover;">
-                                        <div class="accordion" style="background-size: cover;">
-                                            <div class="accordion-section" style="background-size: cover;">
-                                                {% for sv in latest.services %}
-                                                    <div class="accordion-section-title fontw3"
-                                                         data-tab="accordion-{{ sv.id }}"
-                                                         style="background-size: cover;">
-                                                        {{ sv.name }}
-                                                    </div>
-                                                    <div class="accordion-section-content markdown-body"
-                                                         id="accordion-{{ sv.id }}"
-                                                         style="background-size: cover;">
-                                                        {{ sv.help }}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                                </section>
-                        <section id="all_list" style="background-size: cover; opacity: 90%; padding-top: 10px;">
-                            <div id="test" class="container" style="background-size: cover;">
-                                <div class="row" style="background-size: cover;">
-                                    <div class="col text-center" style="background-size: cover;">
-                                        <h2 class="fontw3"><span
-                                                class="uptitle id-color"></span>全部功能</h2>
-                                        <div class="spacer-20" style="background-size: cover;"></div>
-                                    </div>
-                                </div>
                                 <div class="row" style="background-size: cover;">
                                     <div class="col-md-10 offset-md-1" style="background-size: cover;">
                                         <div class="accordion" style="background-size: cover;">
@@ -364,8 +366,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                                </div>
+                                </section>
                     {% endif %}
 
 
@@ -574,6 +576,21 @@
 			});
 
 		});
+
+        $(function () {
+        $(".accordion-section-latest").accordion({
+            collapsible: true,
+            heightStyle: "content",
+            active: false,
+            animate: 100,
+            activate: function (event, ui) {
+                if (!$.isEmptyObject(ui.newHeader.offset())) {
+                    $('html:not(:animated), body:not(:animated)').animate({scrollTop: ui.newHeader.offset().top}, 'fast');
+                }
+            }
+        });
+
+    });
 	</script>
 </body>
 

@@ -112,10 +112,6 @@ body .owl-stage .owl-item {
 	overflow: visible;
 }
 
-input {
-	-webkit-user-select: text;
-}
-
 /* ================================================== */
 
 
@@ -4616,19 +4612,19 @@ i.font60 {
 /* accordion
 ------------------------------ */
 
-.accordion {
+.accordion .accordion-latest {
 	overflow: hidden;
 
 }
 
-.accordion-section-title {
+.accordion-section-title .accordion-section-title-latest {
 	width: 100%;
 	padding: 15px;
 	border-radius: 4px;
 	cursor: pointer;
 }
 
-.accordion-section-title {
+.accordion-section-title .accordion-section-title-latest {
 	font-family: "TXQYW3";
 	color: #111111;
 	width: 100%;
@@ -4642,7 +4638,7 @@ i.font60 {
 	font-weight: 200;
 }
 
-.accordion-section-title:before {
+.accordion-section-title:before .accordion-section-title-latest:before {
 	font-family: "FontAwesome";
 	content: "\f107";
 	float: right;
@@ -4655,22 +4651,22 @@ i.font60 {
 	-webkit-border-radius: 3px;
 }
 
-.accordion-section-title.active:before {
+.accordion-section-title.active:before .accordion-section-title-latest.active:before {
 	content: "\f106";
 	float: right;
 }
 
-.accordion-section-title.active {
+.accordion-section-title.active .accordion-section-title-latest.active {
 	margin-bottom: 0px;
 	text-decoration: none;
 	color: #fff !important;
 }
 
-.accordion-section-title:hover {
+.accordion-section-title:hover .accordion-section-title-latest:hover {
 	text-decoration: none;
 }
 
-.accordion-section-content {
+.accordion-section-content .accordion-section-content-latest {
 	padding: 15px;
 	padding-bottom: 5px;
 	display: none;
@@ -6474,6 +6470,7 @@ i.btn-action-hide,
 .mask img,
 .mask:hover img,
 .accordion .content,
+.accordion-latest .content,
 a.btn-border,
 .f_box span,
 .f_box img,
